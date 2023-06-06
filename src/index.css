@@ -1,13 +1,104 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@keyframes rotateLoading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: #232222;
+}
+
+.btn {
+    width: 100%;
+    max-width: 156px;
+    height: 39px;
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 27px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+}
+
+.btn:hover {
+    color: black;
+    background: #fff;
+    transition: .2s linear;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+input,
+textarea,
+button,
+select {
+    outline: 0;
+}
+
+.input_outline {
+    width: 100%;
+    height: 40px;
+    border-radius: 17px;
+    background: transparent;
+    border: 1px solid #fff;
+    padding-left: 10px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.input_outline::placeholder {
+    color: #aaa8a8;
+}
+
+.label_input {
+    position: relative;
+}
+
+.label_input .input_outline {
+    padding-left: 40px;
+}
+
+.label_input .icon {
+    position: absolute;
+    left: 20px;
+    top: 32%;
+    transform: translate(-5px, -50%);
+    color: #aaa8a8;
+}
+
+.label_input .input_outline:focus ~ .icon {
+    color: #fff;
+}
+
+.loading {
+    position: absolute;
+    top: 25%;
+    left: 42%;
+    width: 20px;
+    height: 20px;
+    animation: rotateLoading 1s infinite linear;
+    border-radius: 10px;
+    border-left: 1px solid #fff;
+}
+
+.btn:hover .loading {
+    border-left: 2px solid #000;
+}
+
+.error {
+    margin: 10px 0;
+    color: #F84444
 }
