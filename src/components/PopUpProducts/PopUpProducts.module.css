@@ -1,0 +1,114 @@
+.container_products {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    overflow-y: scroll;
+    padding: 40px 10px;
+    border: 1px solid white;
+    background: #1E262C;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.container_products::-webkit-scrollbar {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    width: 15px;
+}
+
+.container_products::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 20px;
+}
+
+.container_products::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+.container_products .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.container_products .close:hover {
+    color: #2a516f;
+    transition: .2s linear;
+}
+
+.container_products h3 {
+    color: white;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+.container_products hr {
+    margin-bottom: 20px;
+}
+
+.container_products .single_product {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 17px;
+    padding: 15px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.container_products .single_product p {
+    padding: 10px;
+    font-size: 12px;
+}
+
+.container_products .container_buttons {
+    display: flex;
+    align-items: center;
+}
+
+.container_products .container_buttons div {
+    margin-left: 10px;
+}
+
+.container_products .container_buttons input {
+    width: 40px;
+    height: 40px;
+    border: 1px solid white;
+    background: transparent;
+    padding-left: 15px;
+    color: white;
+}
+
+.container_products .container_buttons div button {
+    width: 30px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+}
+
+.container_products .container_buttons div button:hover {
+    background: #fff;
+    color: #000;
+    transition: .2s linear;
+}
+
+.container_products .container_buttons div button:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.container_products .container_buttons div button:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.container_products .container_buttons span {
+    margin-left: auto;
+}

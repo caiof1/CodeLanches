@@ -18,6 +18,21 @@ body {
     background: #232222;
 }
 
+body::-webkit-scrollbar {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 25px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
 .btn {
     width: 100%;
     max-width: 156px;
@@ -46,6 +61,17 @@ textarea,
 button,
 select {
     outline: 0;
+}
+
+.text_outline {
+    width: 100%;
+    height: 40px;
+    border-radius: 17px;
+    background: transparent;
+    border: 1px solid #fff;
+    padding-left: 10px;
+    color: #fff;
+    margin-bottom: 20px;
 }
 
 .input_outline {
@@ -101,4 +127,14 @@ select {
 .error {
     margin: 10px 0;
     color: #F84444
+}
+
+textarea.input_outline {
+    padding: 15px;
+    height: 200px;
+    resize: none;
+}
+
+.label_input textarea ~ .icon {
+    top: 10%;
 }

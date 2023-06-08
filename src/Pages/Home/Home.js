@@ -1,4 +1,8 @@
+// CSS
 import styles from './Home.module.css'
+
+// Router
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -7,27 +11,27 @@ const Home = () => {
       <section className={styles.container}>
         <div>
           <p>Clique no botão para criar pedidos</p>
-          <button className='btn'>Fazer pedido</button>
+          <Link to="/create_order" className='btn'>Fazer pedido</Link>
         </div>
         <div>
           <p>Aqui pode ver todos os pedidos</p>
-          <button className='btn'>Ver pedidos</button>
+          <Link className='btn'>Ver pedidos</Link>
         </div>
         <div>
           <p>Adicionar produtos ao cardápio</p>
-          <button className='btn'>Produtos</button>
+          <Link className='btn'>Produtos</Link>
         </div>
         <div>
           <p>Adicionar novas categorias</p>
-          <button className='btn'>Categorias</button>
+          <Link className='btn'>Categorias</Link>
         </div>
         <div>
           <p>Adicionar novos colaboradores</p>
-          <button className='btn'>Colaboradores</button>
+          <Link className='btn'>Colaboradores</Link>
         </div>
         <div>
           <p>Ver o dashboard</p>
-          <button className='btn'>Dashboard</button>
+          <Link className='btn'>Dashboard</Link>
         </div>
       </section>
     </div>

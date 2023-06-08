@@ -1,0 +1,30 @@
+.container_create {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container_create label,
+.container_create section {
+    width: 100%;
+}
+
+.container_create button {
+    margin-bottom: 20px;
+}
+
+.container_create .list_order div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+}
+
+.container_create .list_order div:last-child {
+    margin-bottom: 20px;
+}
