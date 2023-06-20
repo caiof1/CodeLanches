@@ -1,0 +1,80 @@
+@keyframes loadingOpacity {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes loadingOpacityNone {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.container_loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.container_loading span {
+    margin: 0 4px;
+    opacity: 0;
+}
+
+.container_loading span i {
+    color: #fff;
+    font-size: 34px;
+}
+
+.container_loading .burguer_1 i {
+    font-size: 50px;
+    color: #F84444;
+}
+
+.container_min .burguer_1 {
+    animation: loadingOpacity 1s linear forwards;
+}
+
+.container_min .burguer_2 {
+    animation: loadingOpacity 1s linear forwards 1s;
+}
+
+.container_min .burguer_3 {
+    animation: loadingOpacity 1s linear forwards 2s;
+}
+
+.container_min .burguer_4 {
+    animation: loadingOpacity 1s linear forwards 3s;
+}
+
+.container_min .burguer_5 {
+    animation: loadingOpacity 1s linear forwards 4s;
+}
+
+.container_max .burguer_1 {
+    animation: loadingOpacityNone 1s linear forwards 4s;
+}
+
+.container_max .burguer_2 {
+    animation: loadingOpacityNone 1s linear forwards 3s;
+}
+
+.container_max .burguer_3 {
+    animation: loadingOpacityNone 1s linear forwards 2s;
+}
+
+.container_max .burguer_4 {
+    animation: loadingOpacityNone 1s linear forwards 1s;
+}
+
+.container_max .burguer_5 {
+    animation: loadingOpacityNone 1s linear forwards;
+}

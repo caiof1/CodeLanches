@@ -18,18 +18,18 @@ body {
     background: #232222;
 }
 
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
     width: 15px;
 }
 
-body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #fff;
     border-radius: 25px;
 }
 
-body::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #ccc;
 }
 
@@ -45,8 +45,12 @@ body::-webkit-scrollbar-thumb:hover {
     position: relative;
 }
 
+.btn_full_size {
+    max-width: none;
+}
+
 .btn:hover {
-    color: black;
+    color: #000;
     background: #fff;
     transition: .2s linear;
 }
@@ -63,15 +67,28 @@ select {
     outline: 0;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-progress-appearance: none;
+}
+
 .text_outline {
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     border-radius: 17px;
     background: transparent;
     border: 1px solid #fff;
     padding-left: 10px;
     color: #fff;
     margin-bottom: 20px;
+}
+
+.text_outline span:first-child {
+    padding: 5px;
+    width: 80%;
+    word-wrap: break-word;
 }
 
 .input_outline {
@@ -109,24 +126,23 @@ select {
     color: #fff;
 }
 
-.loading {
-    position: absolute;
-    top: 25%;
-    left: 42%;
-    width: 20px;
-    height: 20px;
-    animation: rotateLoading 1s infinite linear;
-    border-radius: 10px;
-    border-left: 1px solid #fff;
-}
-
 .btn:hover .loading {
     border-left: 2px solid #000;
 }
 
 .error {
     margin: 10px 0;
-    color: #F84444
+    color: #F84444;
+    text-align: center;
+}
+
+.noposts {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 35px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
 }
 
 textarea.input_outline {
@@ -137,4 +153,16 @@ textarea.input_outline {
 
 .label_input textarea ~ .icon {
     top: 10%;
+}
+
+.loading {
+    text-align: center;
+}
+
+.input_exib input {
+    width: 100%;
+}
+
+.input_ocult input {
+    width: 10%;
 }

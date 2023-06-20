@@ -21,3 +21,16 @@
 .container_login .input_login button {
     margin: 0 auto;
 }
+
+.container_login .eye_icon {
+    position: absolute;
+    right: 10px;
+    top: 34%;
+    transform: translate(-5px, -50%);
+    color: #aaa8a8;
+    cursor: pointer;
+}
+
+.container_login .eye_icon:hover {
+    color: #fff;
+}

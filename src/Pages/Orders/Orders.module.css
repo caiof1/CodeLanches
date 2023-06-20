@@ -1,0 +1,66 @@
+.container_orders {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 0 5px;
+}
+
+.container_orders div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container_orders div a {
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.container_orders div a:hover {
+    color: #2a516f;
+    transition: .2s linear;
+    cursor: pointer;
+}
+
+.input_outline {
+    width: 10%;
+    height: 40px;
+    border-radius: 17px;
+    background: transparent;
+    border: 1px solid #fff;
+    padding-left: 10px;
+    color: #fff;
+    margin-bottom: 20px;
+    transition: .4s linear;
+}
+
+.input_outline::placeholder {
+    color: #aaa8a8;
+}
+
+.container_orders form {
+    position: relative;
+}
+
+.container_orders form .input_outline {
+    padding-left: 40px;
+}
+
+.container_orders form .icon {
+    position: absolute;
+    left: 20px;
+    top: 32%;
+    transform: translate(-5px, -50%);
+    color: #aaa8a8;
+}
+
+.container_orders form .input_outline:focus ~ .icon {
+    color: #fff;
+}
+
+.container_orders .div_order {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+

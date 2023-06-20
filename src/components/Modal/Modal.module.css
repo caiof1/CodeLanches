@@ -1,0 +1,76 @@
+@keyframes moveModal {
+    from {
+        top: -20%;
+    }
+    to {
+        top: 25%;
+    }
+}
+
+@keyframes moveModalReverse {
+    from {
+        top: 25%;
+    }
+    to {
+        top: -20%;
+    }
+}
+
+.container_modal {
+    width: 100%;
+    max-width: 350px;
+    height: 200px;
+    background: #2a516f;
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: .4s linear;
+    animation: moveModal 400ms linear forwards;
+}
+
+.modal {
+    animation: moveModalReverse 400ms linear forwards;
+}
+
+.container_modal h2 {
+    text-align: center;
+    color: #fff;
+}
+
+.container_modal h2 span {
+    color: #F84444;
+}
+
+.container_modal section {
+    display: flex;
+    flex-direction: column;
+}
+
+.container_modal section button {
+    margin: 5px 0;
+}
+
+.container_modal section button:first-child {
+    border-color: #F84444;
+}
+
+.container_modal section button:first-child:hover {
+    background: #F84444;
+    color: #fff;
+}
+
+.container_modal section button:last-child {
+    border-color: #008000;
+}
+
+.container_modal section button:last-child:hover {
+    background: #008000;
+    color: #fff;
+}

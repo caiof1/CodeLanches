@@ -5,13 +5,14 @@
     padding: 0 10px;
 }
 
-.container_header span {
+.container_header span i {
     margin-right: 15px;
-    color: white;
+    color: #fff;
     cursor: pointer;
+    font-size: 20px;
 }
 
-.container_header span:hover {
+.container_header span i:hover {
     color: #2a516f;
     transition: .2 linear;
 }

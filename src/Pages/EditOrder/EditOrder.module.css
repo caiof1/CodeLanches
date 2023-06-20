@@ -1,6 +1,6 @@
 .container_create {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,12 +22,29 @@
     color: #008000;
 }
 
+.container_create .list_order {
+    max-height: 300px;
+    overflow-y: scroll;
+    padding: 0 5px;
+    padding-left: 20px;
+}
+
 .container_create .list_order div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
-    color: white;
+    color: #fff;
+}
+
+.container_create .amount {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: #fff;
 }
 
 .container_create .list_order div:last-child {

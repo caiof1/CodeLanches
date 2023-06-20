@@ -15,7 +15,7 @@ const Home = () => {
         </div>
         <div>
           <p>Aqui pode ver todos os pedidos</p>
-          <Link className='btn'>Ver pedidos</Link>
+          <Link to="/orders" className='btn'>Ver pedidos</Link>
         </div>
         <div>
           <p>Adicionar produtos ao cardápio</p>
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
         <div>
           <p>Ver o dashboard</p>
-          <Link className='btn'>Dashboard</Link>
+          <Link to="/dashboard" className='btn'>Dashboard</Link>
         </div>
       </section>
     </div>

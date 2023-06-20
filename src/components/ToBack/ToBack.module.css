@@ -1,27 +1,14 @@
 .container_back {
     position: absolute;
-    left: 20px;
-    top: 100px;
+    left: 10px;
+    top: 70px;
     padding: 10px;
 }
 
-.line_top,
-.line_bottom {
-    width: 20px;
-    height: 3px;
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 20px;
-}
-
-.line_top {
-    transform: rotate(-40deg);
-}
-
-.line_bottom {
-    transform: rotate(40deg) translate(5px, 6px);
+.container_back i {
+    font-size: 30px;
 }
 
 .container_back a:hover div {
-    border-color: #2a516f;
+    background: #2a516f;
 }
