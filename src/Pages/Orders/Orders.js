@@ -12,38 +12,38 @@ import { Link } from "react-router-dom";
 import { useFetchOrders } from "../../hooks/useFetchOrders";
 import { useEffect, useState } from "react";
 import { useAudioTouch } from "../../hooks/useAudioTouch";
-import { useSeparateOrders } from "../../hooks/useSeparateOrders";
 
 const Orders = () => {
   const [search, setSearch] = useState("");
-  const [searchDocuments, setSearchDocuments] = useState([]);
-
-  // separate orders
-  const [onHold, setOnHold] = useState([]);
-  const [preparing, setPreparing] = useState([]);
-  const [ready, setReady] = useState([]);
-  const [end, setEnd] = useState([]);
 
   const [widthInput, setWidthInput] = useState(false);
 
   const { documents, loading, error } = useFetchOrders("orders");
 
+  const [searchDocuments, setSearchDocuments] = useState([]);
+
   useAudioTouch();
-
-  useSeparateOrders(
-    documents,
-    setOnHold,
-    setPreparing,
-    setReady,
-    setEnd,
-    search
-  );
-
-  console.log(onHold, preparing, ready, end);
 
   const isFocus = (state) => {
     setWidthInput(state);
   };
+
+  const searchChange = (e) => {
+    setSearch(e.target.value);
+    setSearchDocuments([]);
+    setSearchDocuments((actualSearchDocuments) => [
+      ...actualSearchDocuments,
+      documents.filter((element) => element.table.includes(e.target.value)),
+    ]);
+  };
+
+  useEffect(() => {
+    setSearchDocuments([]);
+    setSearchDocuments((actualSearchDocuments) => [
+      ...actualSearchDocuments,
+      documents,
+    ]);
+  }, [documents]);
 
   return (
     <div className={styles.container_orders}>
@@ -60,6 +60,7 @@ const Orders = () => {
           placeholder="Procure por alguma mesa"
           name="search"
           value={search}
+          onChange={searchChange}
           onFocus={() => isFocus(true)}
           onBlur={() => isFocus(false)}
         />
@@ -71,73 +72,97 @@ const Orders = () => {
         <span className={styles.order}>&lt; Em espera /&gt;</span>
       </div>
       {documents &&
-        onHold?.map((doc) => (
-          <div key={doc.id} className="text_outline">
-            <span>Mesa {doc.table}</span>
-            <Link to={`/orders/detail_order/${doc.id}`}>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </Link>
-          </div>
+        searchDocuments[0]?.map((doc) => (
+          <>
+            {doc !== false && doc.status === 0 && (
+              <div key={doc.id} className="text_outline">
+                <span>Mesa {doc.table}</span>
+                <Link to={`/orders/detail_order/${doc.id}`}>
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Link>
+              </div>
+            )}
+          </>
         ))}
-      {onHold && onHold.length === 0 && (
-        <section className="noposts">
-          <span>Sem pedido em espera</span>
-        </section>
-      )}
+      {documents &&
+        searchDocuments[0]?.filter((element) => element.status === 0).length ===
+          0 && (
+          <section className="noposts">
+            <span>Sem pedido em Espera</span>
+          </section>
+        )}
       {/* Order preparing */}
-      <div className={styles.div_order}>
+      <div className={styles.div_order2}>
         <span className={styles.order}>&lt; Preparando pedido /&gt;</span>
       </div>
       {documents &&
-        preparing?.map((doc) => (
-          <div key={doc.id} className="text_outline">
-            <span>Mesa {doc.table}</span>
-            <Link to={`/orders/detail_order/${doc.id}`}>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </Link>
-          </div>
+        searchDocuments[0]?.map((doc) => (
+          <>
+            {doc !== false && doc.status === 1 && (
+              <div key={doc.id} className="text_outline">
+                <span>Mesa {doc.table}</span>
+                <Link to={`/orders/detail_order/${doc.id}`}>
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Link>
+              </div>
+            )}
+          </>
         ))}
-      {preparing && preparing.length === 0 && (
-        <section className="noposts">
-          <span>Sem pedido em preparo</span>
-        </section>
-      )}
+      {documents &&
+        searchDocuments[0]?.filter((element) => element.status === 1).length ===
+          0 && (
+          <section className="noposts">
+            <span>Sem pedido Preparado</span>
+          </section>
+        )}
       {/* Order Ready */}
-      <div className={styles.div_order}>
+      <div className={styles.div_order3}>
         <span className={styles.order}>&lt; Pedido pronto /&gt;</span>
       </div>
       {documents &&
-        ready?.map((doc) => (
-          <div key={doc.id} className="text_outline">
-            <span>Mesa {doc.table}</span>
-            <Link to={`/orders/detail_order/${doc.id}`}>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </Link>
-          </div>
+        searchDocuments[0]?.map((doc) => (
+          <>
+            {doc !== false && doc.status === 2 && (
+              <div key={doc.id} className="text_outline">
+                <span>Mesa {doc.table}</span>
+                <Link to={`/orders/detail_order/${doc.id}`}>
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Link>
+              </div>
+            )}
+          </>
         ))}
-      {ready && ready.length === 0 && (
-        <section className="noposts">
-          <span>Sem pedido pronto</span>
-        </section>
-      )}
+      {documents &&
+        searchDocuments[0]?.filter((element) => element.status === 2).length ===
+          0 && (
+          <section className="noposts">
+            <span>Sem pedido Preparado</span>
+          </section>
+        )}
       {/* Order End */}
-      <div className={styles.div_order}>
+      <div className={styles.div_order4}>
         <span className={styles.order}>&lt; Conta fechada /&gt;</span>
       </div>
       {documents &&
-        end?.map((doc) => (
-          <div key={doc.id} className="text_outline">
-            <span>Mesa {doc.table}</span>
-            <Link to={`/orders/detail_order/${doc.id}`}>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </Link>
-          </div>
+        searchDocuments[0]?.map((doc) => (
+          <>
+            {doc !== false && doc.status === 3 && (
+              <div key={doc.id} className="text_outline">
+                <span>Mesa {doc.table}</span>
+                <Link to={`/orders/detail_order/${doc.id}`}>
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Link>
+              </div>
+            )}
+          </>
         ))}
-      {end && end.length === 0 && (
-        <section className="noposts">
-          <span>Sem pedido Finalizado</span>
-        </section>
-      )}
+      {documents &&
+        searchDocuments[0]?.filter((element) => element.status === 3).length ===
+          0 && (
+          <section className="noposts">
+            <span>Sem pedido Finalizado</span>
+          </section>
+        )}
       {loading && (
         <span>
           {" "}

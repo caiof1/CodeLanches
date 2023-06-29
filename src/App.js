@@ -27,6 +27,8 @@ import Orders from "./Pages/Orders/Orders";
 import DetailOrder from "./Pages/DetailOrder/DetailOrder";
 import EditOrder from "./Pages/EditOrder/EditOrder";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import Category from "./Pages/Category/Category";
+import EditCategory from "./Pages/EditCategory/EditCategory";
 
 function App() {
   const [user, setUser] = useState("");
@@ -77,6 +79,14 @@ function App() {
           <Route
             path="/orders/edit_order/:id"
             element={user ? <EditOrder /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/category"
+            element={user ? <Category /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/category/edit_category/:id"
+            element={user ? <EditCategory /> : <Navigate to="/login" />}
           />
           <Route
             path="/dashboard"

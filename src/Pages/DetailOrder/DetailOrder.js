@@ -33,14 +33,19 @@ const DetailOrder = () => {
 
   const readyOrder = () => {
     setCloseModalUpdate(true);
-    setStatus(1);
+    setStatus(2);
     setText("Pedido já está pronto?");
   };
 
   const endOrder = () => {
     setCloseModalUpdate(true);
-    setStatus(2);
+    setStatus(3);
     setText("Fechar conta?");
+  };
+  const preparingOrder = () => {
+    setCloseModalUpdate(true);
+    setStatus(1);
+    setText("Preparar pedido?");
   };
 
   return (
@@ -84,7 +89,7 @@ const DetailOrder = () => {
         <span>R$ {document.amount}</span>
       </div>
       <div className={styles.buttons}>
-        {document && document.status !== 2 && (
+        {document && document.status !== 3 && (
           <button
             onClick={() => navigate(`/orders/edit_order/${id}`)}
             className="btn btn_full_size"
@@ -93,21 +98,26 @@ const DetailOrder = () => {
           </button>
         )}
         {document && document.status === 0 && (
-          <button className="btn btn_full_size" onClick={readyOrder}>
-            &lt; Pedido pronto /&gt;
+          <button className="btn btn_full_size" onClick={preparingOrder}>
+            &lt; Começar Preparo /&gt;
           </button>
         )}
         {document && document.status === 1 && (
+          <button className="btn btn_full_size" onClick={readyOrder}>
+            &lt; Pedido preparado /&gt;
+          </button>
+        )}
+        {document && document.status === 2 && (
           <button className="btn btn_full_size" onClick={endOrder}>
             &lt; Fechar Conta /&gt;
           </button>
         )}
-        {document && document.status === 2 && (
+        {document && document.status === 3 && (
           <div className={styles.finaly_order}>
             <span>Pedido Finalizado</span>
           </div>
         )}
-        {document && document.status !== 2 && (
+        {document && document.status !== 3 && (
           <button
             className="btn btn_full_size"
             onClick={() => setCloseModal(true)}

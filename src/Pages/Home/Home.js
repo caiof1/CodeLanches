@@ -23,7 +23,7 @@ const Home = () => {
         </div>
         <div>
           <p>Adicionar novas categorias</p>
-          <Link className='btn'>Categorias</Link>
+          <Link to="/category" className='btn'>Categorias</Link>
         </div>
         <div>
           <p>Adicionar novos colaboradores</p>

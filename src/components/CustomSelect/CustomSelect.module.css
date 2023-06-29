@@ -1,0 +1,65 @@
+.select {
+    position: relative;
+}
+
+.select input {
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.select .options {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    background: #232222;
+    top: 40px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #fff;
+    border-top: 0;
+    z-index: 2;
+}
+
+.select .options button {
+    border: 0;
+    text-align: left;
+    color: #fff;
+    width: 100%;
+    padding: 10px 15px;
+    background: #232222
+}
+
+.select .options button:hover {
+    color: #000;
+    background: #fff;
+    transition: .2s linear;
+    cursor: pointer;
+}
+
+.select .icon {
+    position: absolute;
+    top: 32%;
+    right: 5px;
+    font-size: 17px;
+    color: #fff;
+    transform: translate(-20px, -35%);
+    transition: .2s linear;
+}
+
+.select i {
+    z-index: -1;
+}
+
+.select .icon_reverse {
+    transform: translate(-20px, -40%) rotateX(-180deg);
+}
+
+.alert {
+    text-align: center;
+    width: 100%;
+    color: #F84444;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

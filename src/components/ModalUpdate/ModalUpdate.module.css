@@ -17,7 +17,7 @@
 }
 
 .container_modal {
-    width: 100%;
+    width: 95%;
     max-width: 350px;
     height: 200px;
     background: #2a516f;
@@ -33,6 +33,7 @@
     justify-content: space-between;
     transition: .4s linear;
     animation: moveModal 400ms linear forwards;
+    z-index: 3;
 }
 
 .modal {

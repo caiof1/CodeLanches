@@ -58,9 +58,19 @@
     color: #fff;
 }
 
-.container_orders .div_order {
+.container_orders .div_order,
+.container_orders .div_order2,
+.container_orders .div_order3,
+.container_orders .div_order4 {
     color: #fff;
     margin-bottom: 10px;
 }
+
+.container_orders .div_order2,
+.container_orders .div_order3,
+.container_orders .div_order4 {
+    margin-top: 40px;
+}
+
 
 
