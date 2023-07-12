@@ -1,102 +1,168 @@
 // CSS
-import styles from './MakeAWish.module.css'
+import styles from "./MakeAWish.module.css";
 
 // Router
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 // Components
-import PopUpProducts from '../../components/PopUpProducts/PopUpProducts'
-import ToBack from '../../components/ToBack/ToBack'
+import PopUpProducts from "../../components/PopUpProducts/PopUpProducts";
+import ToBack from "../../components/ToBack/ToBack";
 
 // Hooks
-import { useEffect, useState } from 'react'
-import { useInsertOrder } from '../../hooks/useInsertOrder'
-import { useUpdateOrder } from '../../hooks/useUpdateOrder'
-import { useFetchOrder } from '../../hooks/useFetchOrder'
+import { useEffect, useState } from "react";
+import { useInsertOrder } from "../../hooks/useInsertOrder";
+import { useUpdateOrder } from "../../hooks/useUpdateOrder";
+import { useFetchOrder } from "../../hooks/useFetchOrder";
+import { useFetchUser } from "../../hooks/useFetchUser";
 
+const MakeAWish = ({user}) => {
+  const idControl = "ZZ4lKQ0pbvoQl52OmeBv";
 
-const MakeAWish = () => {
+  const [table, setTable] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [products, setProducts] = useState([]);
+  const [amount, setAmount] = useState(0);
 
-    const idControl = 'ZZ4lKQ0pbvoQl52OmeBv'
+  const [active, setActive] = useState(false);
 
-    const [table, setTable] = useState('')
-    const [instructions, setInstructions] = useState('')
-    const [products, setProducts] = useState([])
-    const [amount, setAmount] = useState(0)
-    const [active, setActive] = useState(false)
+  const { insertOrder, loading, error } = useInsertOrder("orders");
+  const { document } = useFetchOrder("control", idControl);
 
-    const {insertOrder, loading, error} = useInsertOrder('orders')
-    const {document} = useFetchOrder('control', idControl)
+  const {documents} = useFetchUser(user.uid, 'users')
 
-    const {updateOrder} = useUpdateOrder('control')
+  const { updateOrder } = useUpdateOrder("control");
 
-    console.log(document)
+  const {updateOrder: updateUser} = useUpdateOrder('users');
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const data = {
-            table,
-            instructions,
-            products,
-            amount,
-            status: 0
+    let userDoc = documents[0];
+
+    products.map((product) => {
+
+      for(let i = 0; i < userDoc.salesProducts?.length; i++) {
+
+        if(userDoc.salesProducts[i].nameProduct === product.nameProduct) {
+          userDoc.salesProducts[i].qtdSales += parseInt(product.qtd)
+          userDoc.salesProducts[i].valueSales += product.value
+
+          updateUser(userDoc.id, userDoc)
         }
 
-        const create = insertOrder(data)
+      }
 
-        document.acessAudio = true
+      return null
+    }) 
 
-        updateOrder(idControl, document)
+    const data = {
+      table,
+      instructions,
+      products,
+      amount,
+      status: 0,
+      uidCollaborator: user.uid
+    };
 
-        if(create) {
-            navigate('/')
-        }
+    const create = insertOrder(data);
+
+    document.acessAudio = true;
+
+    updateOrder(idControl, document);
+
+    if (create) {
+      navigate("/");
     }
+  };
 
-    useEffect(() => {
-        setAmount(0)
-        if(products) {
-            products.map((product) => {
-                setAmount((actualAmount) => actualAmount + product.value)
-                return null
-            })
-        }
-    }, [products])
+  const handleRemoveProduct = (product) => {
+    setProducts((actualProduct) =>
+      actualProduct.filter((element) => element !== product)
+    );
+  };
 
-    return (
-        <form autoComplete='off' onSubmit={handleSubmit} className={styles.container_create}>
-            <ToBack />
-            <label className='label_input'>
-                <input className='input_outline' required placeholder='< Mesa />' type="text" name="table" value={table} onChange={(e) => setTable(e.target.value)}/>
-                <i className="fa-solid fa-chair icon"></i>
-            </label>
-            <label className='label_input'>
-                <textarea className='input_outline' placeholder='< Instruções />' type="text" name="instructions" value={instructions} onChange={(e) => setInstructions(e.target.value)}/>
-                <i className="fa-solid fa-receipt icon"></i>
-            </label>
-            <button type='button' onClick={() => setActive((actualActive) => !actualActive)} className='btn btn_full_size'>&lt; Adicionar Produto /&gt;</button>
-            {active && <PopUpProducts setActive={setActive} setProducts={setProducts} setAmount={setAmount} />}
-            <section className={styles.list_order}>
-                {products && products.map((product) => (
-                    <div className='text_outline'>
-                        <span>{product.qtd} - {product.name}</span>
-                        <span>X</span>
-                    </div>
-                ))}
-                <div>
-                    <span>Total:</span>
-                    <span>R$ {amount}</span>
-                </div>
-            </section>
-            {error && <span className='error'>{error}</span>}
-            <button type='submit' className='btn btn_full_size'>
-                {loading ? <span className='loading'></span> : '< Finalizar Pedido />'}
-            </button>
-        </form>
-    )
-}
+  useEffect(() => {
+    setAmount(0);
+    if (products) {
+      products.map((product) => {
+        setAmount((actualAmount) => actualAmount + product.value);
+        return null;
+      });
+    }
+  }, [products]);
 
-export default MakeAWish
+  return (
+    <form
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      className={styles.container_create}
+    >
+      <ToBack />
+      <label className="label_input">
+        <input
+          className="input_outline"
+          required
+          placeholder="Mesa"
+          type="text"
+          name="table"
+          value={table}
+          onChange={(e) => setTable(e.target.value)}
+        />
+        <i className="fa-solid fa-chair icon"></i>
+      </label>
+      <label className="label_input">
+        <textarea
+          className="input_outline"
+          placeholder="Instruções"
+          type="text"
+          name="instructions"
+          value={instructions}
+          onChange={(e) => setInstructions(e.target.value)}
+        />
+        <i className="fa-solid fa-receipt icon"></i>
+      </label>
+      <button
+        type="button"
+        onClick={() => setActive((actualActive) => !actualActive)}
+        className="btn btn_full_size"
+      >
+        Adicionar Produto
+      </button>
+      {active && (
+        <PopUpProducts
+          setActive={setActive}
+          setProducts={setProducts}
+          setAmount={setAmount}
+        />
+      )}
+      <section className={styles.list_order}>
+        {products &&
+          products.map((product) => (
+            <div className="text_outline">
+              <span>
+                {product.qtd} - {product.nameProduct}
+              </span>
+              <span
+                className={styles.remove_product}
+                onClick={() => handleRemoveProduct(product)}
+              >
+                <i class="fa-solid fa-trash"></i>
+              </span>
+            </div>
+          ))}
+        <div>
+          <span>Total:</span>
+          <span>R$ {amount}</span>
+        </div>
+      </section>
+      {error && <span className="error">{error}</span>}
+      <button type="submit" className="btn btn_full_size">
+        {loading ? <span className="loading"></span> : "Finalizar Pedido"}
+      </button>
+    </form>
+  );
+};
+
+export default MakeAWish;

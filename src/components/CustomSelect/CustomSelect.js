@@ -3,27 +3,20 @@ import styles from "./CustomSelect.module.css";
 
 // Hooks
 import { useEffect, useState } from "react";
-import { useFetchOrder } from "../../hooks/useFetchOrder";
-import { useFetchCategory } from "../../hooks/useFetchCategory";
 
-// Router
-import { useParams } from "react-router-dom";
 
-const CustomSelect = ({setICanSave}) => {
-  const { id } = useParams();
+const CustomSelect = ({ document, documents, setNewSelectNumber, placeholder }) => {
 
   const [selectActive, setSelectActive] = useState(false);
   const [selectValue, setSelectValue] = useState();
 
-  const [errorSelect, setErrorSelect] = useState(false);
-
-  const { document } = useFetchOrder("categorys", id);
-
-  const { documents } = useFetchCategory("categorys");
+  const [noError, setNoError] = useState()
 
   useEffect(() => {
-    setSelectValue(document.selectNumber);
-  }, [document]);
+    setSelectValue(document)
+    setNewSelectNumber(document)
+  }, [document])
+
 
   const blurSelect = () => {
     setTimeout(() => {
@@ -31,38 +24,23 @@ const CustomSelect = ({setICanSave}) => {
     }, 200);
   };
 
-  const changeSelect = (e) => {
-    setSelectValue(e.target.value);
-
-    // Verify if number exist in database
-    if (
-      documents.find(
-        (element) => element.selectNumber === parseInt(e.target.value)
-      ) !== undefined
-    ) {
-      setErrorSelect(false);
-      setICanSave(true)
-    } else {
-      setErrorSelect(true);
-      setICanSave(false)
+  const changeCategoryNumber = (doc) => {
+    setSelectValue(doc)
+    if(doc !== document.selectNumber) {
+      setNewSelectNumber(doc)
     }
-  };
+  }
 
   return (
     <>
-      {errorSelect && (
-        <span className={styles.alert}>
-          Ordene corretamente a sua categoria
-        </span>
-      )}
       <label className={`label_input ${styles.select}`}>
         <input
-          type="number"
+          type="text"
           onFocus={() => setSelectActive(true)}
           onBlur={blurSelect}
           value={selectValue}
-          onChange={changeSelect}
-          placeholder="Selecione a ordem dessa categoria"
+          onChange={(e) => setNoError(e.target.value)}
+          placeholder={placeholder}
           className="input_outline"
         />
         <i class="fa-solid fa-list icon"></i>
@@ -76,10 +54,11 @@ const CustomSelect = ({setICanSave}) => {
             {documents &&
               documents.map((doc) => (
                 <button
-                  key={doc.selectNumber}
-                  onClick={() => setSelectValue(doc.selectNumber)}
+                  type="button"
+                  key={doc}
+                  onClick={() => changeCategoryNumber(doc)}
                 >
-                  {doc.selectNumber}
+                  {doc}
                 </button>
               ))}
           </div>

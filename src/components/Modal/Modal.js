@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 // Router
 import { useNavigate } from "react-router-dom";
 
-const Modal = ({ item, id, setCloseModal }) => {
-  const { deleteOrder, error, acess } = useDeleteOrder("orders");
+const Modal = ({ item, id, setCloseModal, docCollection, setCategoryDeleteMessage }) => {
+  const { deleteOrder, error, acess } = useDeleteOrder(docCollection);
   const [closeMod, setCloseMod] = useState(false);
 
   const navigate = useNavigate();
@@ -27,6 +27,11 @@ const Modal = ({ item, id, setCloseModal }) => {
     }, 400);
   };
 
+  const handleDelete = () => {
+    deleteOrder(id)
+    setCategoryDeleteMessage(true)
+  }
+
   return (
     <div className={styles.container_modal + " " + (closeMod && styles.modal)}>
       <h2>
@@ -34,10 +39,18 @@ const Modal = ({ item, id, setCloseModal }) => {
       </h2>
       {error && <span className="error">{error}</span>}
       <section>
-        <button className="btn btn_full_size" onClick={() => deleteOrder(id)}>
+        <button
+          className="btn btn_full_size"
+          type="button"
+          onClick={handleDelete}
+        >
           Excluir
         </button>
-        <button className="btn btn_full_size" onClick={closeModals}>
+        <button
+          className="btn btn_full_size"
+          type="button"
+          onClick={closeModals}
+        >
           Não excluir
         </button>
       </section>

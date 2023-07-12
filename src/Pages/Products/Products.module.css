@@ -1,17 +1,20 @@
 .container_products {
     width: 100%;
-    max-width: 500px;
     height: 500px;
-    overflow-y: scroll;
-    padding: 40px 10px;
-    border: 1px solid #fff;
-    background: #1E262C;
+    padding-top: 40px;
     border-radius: 10px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 2;
+}
+
+.container_products .product_category {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.container_products .products {
+    width: 100%;
+    margin-top: 15px;
 }
 
 .container_products::-webkit-scrollbar {
@@ -29,23 +32,24 @@
     background: #ccc;
 }
 
-.container_products .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.container_products .close:hover {
-    color: #2a516f;
-    transition: .2s linear;
-}
-
 .container_products h3 {
     color: #fff;
     margin-bottom: 5px;
     padding-left: 5px;
+}
+
+.container_products .products .single_product:hover {
+    transform: scale(1.05);
+    transition: .2s linear;
+    border-color: #008000;
+}
+
+.container_products .products:hover h3 {
+    color: #008000;
+}
+
+.container_products .products:hover hr {
+    border-color: #008000;
 }
 
 .container_products hr {
@@ -54,11 +58,11 @@
 
 .container_products .single_product {
     width: 100%;
-    border: 1px solid #fff;
+    border: 1px solid white;
     border-radius: 17px;
     padding: 15px;
-    color: #fff;
-    margin-bottom: 15px;
+    color: white;
+    margin-bottom: 25px;
 }
 
 .container_products .single_product p {
@@ -73,26 +77,23 @@
 
 .container_products .container_buttons div {
     margin-left: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
 }
 
 .container_products .container_buttons input {
     width: 40px;
     height: 40px;
+    border: 1px solid white;
     background: transparent;
     padding-left: 15px;
-    border: 1px solid #fff;
-    color: #fff;
+    color: white;
 }
 
 .container_products .container_buttons div button {
     width: 30px;
     height: 40px;
     background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
+    border: 1px solid white;
+    color: white;
     cursor: pointer;
 }
 
@@ -102,18 +103,27 @@
     transition: .2s linear;
 }
 
-.container_products .container_buttons div .button_less {
+.container_products .container_buttons div button:first-child {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
-.container_products .container_buttons div .button_more {
+.container_products .container_buttons div button:last-child {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
 
 .container_products .container_buttons span {
     margin-left: auto;
-    align-self: center;
 }
 
+@media screen and (max-width: 500px) {
+    .container_buttons {
+        flex-direction: column;
+    }
+
+    .container_buttons button {
+        margin-bottom: 10px;
+        max-width: none;
+    }
+}

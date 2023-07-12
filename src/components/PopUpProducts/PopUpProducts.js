@@ -1,42 +1,96 @@
-import styles from './PopUpProducts.module.css'
+// CSS
+import styles from "./PopUpProducts.module.css";
 
-const PopUpProducts = ({setActive, setProducts, setAmount}) => {
+// Hook
+import { useFetchProducts } from "../../hooks/useFetchProducts";
+import { useFetchCategory } from "../../hooks/useFetchCategory";
 
-    const handleAddProduct = () => {
-        const product = {
-            name: 'X-tudo',
-            qtd: 2,
-            value: 20.00
-        }
+const PopUpProducts = ({ setActive, setProducts }) => {
+  const { documents, loading, error } = useFetchProducts("products");
+  const { documents: categorys } = useFetchCategory("categorys");
 
-        setProducts((actualProducts) => [
-            ...actualProducts,
-            product
-        ])
+  const handleAddProduct = (doc) => {
+    const product = {
+      qtd: document.getElementById(doc.id).value,
+      ...doc,
+      value: parseFloat(doc.valueProduct) * document.getElementById(doc.id).value
+    };
+
+    setProducts((actualProducts) => [...actualProducts, product]);
+  };
+
+  const handleAddCont = (id) => {
+    const inputCont = document.getElementById(id)
+
+    inputCont.value = parseInt(inputCont.value) + 1;
+  }
+
+  const handleLessCont = (id) => {
+    const inputCont = document.getElementById(id)
+
+    if(inputCont.value > 1) {
+      inputCont.value = parseInt(inputCont.value) - 1;
     }
+  }
 
-    return (
-        <div className={styles.container_products}>
-            <span className={styles.close} onClick={() => setActive((actualActive) => !actualActive)}>X</span>
-            <section className={styles.products}>
-                <h3>Hamburgueria</h3>
-                <hr />
-                <div className={styles.single_product}>
-                    <h4>X-Tudo</h4>
-                    <p>O X-tudo acompanha: Carne de 120g, queijo cheedar, mussarela, cebola roxa, alface, tomate, molho verde caseiro, molho rosa caseiro.</p>
-                    <div className={styles.container_buttons}>
-                        <button type='button' onClick={handleAddProduct} className='btn'>Adicionar</button>
+  return (
+    <div className={styles.container_products}>
+      <span
+        className={styles.close}
+        onClick={() => setActive((actualActive) => !actualActive)}
+      >
+        X
+      </span>
+      {categorys &&
+        categorys.map((category) => (
+          <section className={styles.products}>
+            <h3>{category.nameCategory}</h3>
+            <hr />
+            {documents &&
+              documents.map((doc) => (
+                <>
+                  {doc.idCategory === category.id && (
+                    <div key={doc.id} className={styles.single_product}>
+                      <h4>{doc.nameProduct}</h4>
+                      <p>{doc.descriptionProduct}</p>
+                      <div className={styles.container_buttons}>
+                        <button
+                          type="button"
+                          onClick={() => handleAddProduct(doc)}
+                          className="btn"
+                        >
+                          Adicionar
+                        </button>
                         <div>
-                            <button type='button'>-</button>
-                            <input type="number" disabled value="1" name="" id="" />
-                            <button type='button'>+</button>
+                          <button
+                            type="button"
+                            id="less"
+                            className={styles.button_less}
+                            onClick={() => handleLessCont(doc.id)}
+                          >
+                            -
+                          </button>
+                          <input
+                            type="number"
+                            disabled
+                            value="1"
+                            name=""
+                            id={doc.id}
+                          />
+                          <button type="button" id="more" onClick={() => handleAddCont(doc.id)} className={styles.button_more}>
+                            +
+                          </button>
+                          <span>R$ {doc.valueProduct}</span>
                         </div>
-                        <span>R$ 20,00</span>
+                      </div>
                     </div>
-                </div>
-            </section>
-        </div>
-    )
-}
+                  )}
+                </>
+              ))}
+          </section>
+        ))}
+    </div>
+  );
+};
 
-export default PopUpProducts
+export default PopUpProducts;

@@ -27,6 +27,7 @@ const DetailOrder = () => {
 
   const [closeModalUpdate, setCloseModalUpdate] = useState(false);
 
+
   const navigate = useNavigate();
 
   useAudioTouch();
@@ -78,7 +79,7 @@ const DetailOrder = () => {
           document.products?.map((product) => (
             <div className="text_outline">
               <span>
-                {product.qtd} - {product.name}
+                {product.qtd} - {product.nameProduct}
               </span>
               <span>R$ {product.value}</span>
             </div>
@@ -137,6 +138,7 @@ const DetailOrder = () => {
           item={"Mesa " + document.table}
           id={id}
           setCloseModal={setCloseModal}
+          docCollection={'orders'}
         />
       )}
 

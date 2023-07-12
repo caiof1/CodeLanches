@@ -4,40 +4,53 @@ import styles from "./EditCategory.module.css";
 // Hooks
 import { useEffect, useState } from "react";
 import { useFetchOrder } from "../../hooks/useFetchOrder";
+import { useUpdateOrder } from "../../hooks/useUpdateOrder";
+import { useFetchCategory } from "../../hooks/useFetchCategory";
 
 // Components
 import Loading from "../../components/Loading/Loading";
 import ToBack from "../../components/ToBack/ToBack";
-import ModalUpdate from "../../components/ModalUpdate/ModalUpdate";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
+import Modal from "../../components/Modal/Modal";
 
 // Router
-import { useParams } from "react-router-dom";
-import { useUpdateOrder } from "../../hooks/useUpdateOrder";
-import { useFetchCategory } from "../../hooks/useFetchCategory";
+import { useNavigate, useParams } from "react-router-dom";
 
-const EditCategory = () => {
+const EditCategory = ({ setCategorySaveMessage, setCategoryDeleteMessage }) => {
   const { id } = useParams();
 
   const [error, setError] = useState("");
 
-  const {
-    document,
-    error: fetchError,
-  } = useFetchOrder("categorys", id);
+  const [nameCategory, setNameCategory] = useState("");
+  const [newSelectNumber, setNewSelectNumber] = useState(-1);
 
-  const {documents} = useFetchCategory('categorys')
+  const navigate = useNavigate();
+
+  const { document, error: fetchError } = useFetchOrder("categorys", id);
+  const { documents } = useFetchCategory("categorys");
+
+  const [numbersDocuments, setNumbersDocuments] = useState([])
 
   const {
-    updateDoc,
+    updateOrder,
     loading,
     error: updateError,
+    acess,
   } = useUpdateOrder("categorys");
 
   const [text, setText] = useState("");
-  const [closeModalUpdate, setCloseModalUpdate] = useState(false);
+  const [closeModal, setCloseModal] = useState(false);
 
-  const [iCanSave, setICanSave] = useState(true);
+  useEffect(() => {
+    setNumbersDocuments([])
+    documents.map((doc) => {
+      setNumbersDocuments((actualNumbersDocuments) => [
+        ...actualNumbersDocuments,
+        doc.selectNumber
+      ])
+      return null
+    })
+  }, [documents])
 
   useEffect(() => {
     if (fetchError) {
@@ -47,41 +60,86 @@ const EditCategory = () => {
     }
   }, [fetchError, updateError]);
 
+  useEffect(() => {
+    setNameCategory(document.nameCategory);
+    setNewSelectNumber(document.selectNumber);
+  }, [document]);
+
   const deleteCategory = () => {
-    setCloseModalUpdate(true);
+    setCloseModal(true);
     setText("Deseja excluir?");
   };
 
-  const saveCategory = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setError("");
-    if (iCanSave) {
-
-    } else {
-      setError("Preencha corretamente todos os campos!");
+    if (
+      newSelectNumber === document.selectNumber &&
+      nameCategory === document.nameCategory
+    ) {
+      setError("Altere alguma informação antes de salvar");
+      return;
     }
+
+    if (newSelectNumber !== document.selectNumber) {
+      // changing selectNumber in database
+      const selectNumberActual = document.selectNumber;
+      const selectNumberNew = documents.filter(
+        (element) => element.selectNumber === newSelectNumber
+      );
+
+      document.selectNumber = selectNumberNew[0].selectNumber;
+      selectNumberNew[0].selectNumber = selectNumberActual;
+
+      updateOrder(selectNumberNew[0].id, selectNumberNew[0]);
+    }
+
+    // changing nameCategory in database
+    document.nameCategory = nameCategory;
+
+    updateOrder(id, document);
   };
 
+  useEffect(() => {
+    if (acess) {
+      setCategorySaveMessage(true);
+      navigate("/category");
+    }
+  }, [acess]);
+
   return (
-    <div className={styles.container_category}>
+    <form
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      className={styles.container_category}
+    >
       <ToBack />
       <label className="label_input">
         <input
           type="text"
           className="input_outline"
-          value={document.nameCategory}
+          placeholder="Nome da categoria"
+          value={nameCategory}
+          onChange={(e) => setNameCategory(e.target.value)}
         />
         <i class="fa-solid fa-burger icon"></i>
       </label>
-      <CustomSelect setICanSave={setICanSave} />
+      <CustomSelect
+        document={document.selectNumber}
+        documents={numbersDocuments}
+        setNewSelectNumber={setNewSelectNumber}
+        placeholder={"Selecione a ordem dessa categoria"}
+      />
       <button
         className={`btn btn_full_size ${styles.save_category}`}
-        onClick={saveCategory}
+        type="submit"
       >
         &lt; Salvar categoria /&gt;
       </button>
       <button
         className={`btn btn_full_size ${styles.delete_category}`}
         onClick={deleteCategory}
+        type="button"
       >
         &lt; Excluir categoria /&gt;
       </button>
@@ -91,16 +149,18 @@ const EditCategory = () => {
           <Loading />{" "}
         </span>
       )}
-      {closeModalUpdate && (
-        <ModalUpdate
+      {closeModal && (
+        <Modal
           text={text}
           id={id}
           document={document}
-          setCloseModalUpdate={setCloseModalUpdate}
+          setCloseModal={setCloseModal}
+          docCollection={"categorys"}
+          setCategoryDeleteMessage={setCategoryDeleteMessage}
         />
       )}
       {error && <span className="error">{error}</span>}
-    </div>
+    </form>
   );
 };
 

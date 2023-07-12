@@ -1,0 +1,15 @@
+.container_products {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container_products .save_products {
+    border-color: #008000;
+    color: #008000;
+    margin-bottom: 15px;
+}
+

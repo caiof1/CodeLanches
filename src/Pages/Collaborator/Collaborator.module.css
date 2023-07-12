@@ -1,0 +1,36 @@
+.container_register {
+    width: 100%;
+}
+
+.container_register .input_register {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 55px;
+}
+
+.container_register .input_register button {
+    margin: 0 auto;
+}
+
+.container_register .input_register label {
+    width: 100%;
+}
+
+.container_register .eye_icon {
+    position: absolute;
+    right: 10px;
+    top: 34%;
+    transform: translate(-5px, -50%);
+    color: #aaa8a8;
+    cursor: pointer;
+}
+
+.container_register .eye_icon:hover {
+    color: #fff;
+}

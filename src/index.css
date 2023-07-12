@@ -7,6 +7,15 @@
     }
 }
 
+@keyframes timeMessageLoading {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -39,7 +48,7 @@ body {
     height: 39px;
     background: transparent;
     border: 1px solid #fff;
-    border-radius: 27px;
+    border-radius: 10px;
     color: #fff;
     cursor: pointer;
     position: relative;
@@ -149,6 +158,7 @@ textarea.input_outline {
     padding: 15px;
     height: 200px;
     resize: none;
+    border-radius: 10px;
 }
 
 .label_input textarea ~ .icon {
@@ -165,4 +175,43 @@ textarea.input_outline {
 
 .input_ocult input {
     width: 10%;
+}
+
+.message_loading {
+    width: 100%;
+    max-width: 250px;
+    height: 50px;
+    background: #008000;
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.message_loading div {
+    width: 100%;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: #fff;
+}
+
+.message_loading::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #fff;
+    transition: .2s linear;
+    animation: timeMessageLoading 2s linear forwards;
+}
+
+.message_loading_error {
+    background: #F84444;
+}
+
+p {
+    word-wrap: break-word;
 }

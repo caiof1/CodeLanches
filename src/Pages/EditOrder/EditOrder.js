@@ -58,6 +58,12 @@ const EditOrder = () => {
     }
   };
 
+  const handleRemoveProduct = (product) => {
+    setProducts((actualProduct) =>
+      actualProduct.filter((element) => element !== product)
+    );
+  };
+
   useEffect(() => {
     if (acess) {
       navigate(-1);
@@ -98,7 +104,7 @@ const EditOrder = () => {
         <input
           className="input_outline"
           required
-          placeholder="< Mesa />"
+          placeholder="Mesa"
           type="text"
           name="table"
           value={table}
@@ -109,7 +115,7 @@ const EditOrder = () => {
       <label className="label_input">
         <textarea
           className="input_outline"
-          placeholder="< Instruções />"
+          placeholder="Instruções"
           type="text"
           name="instructions"
           value={instructions}
@@ -122,7 +128,7 @@ const EditOrder = () => {
         onClick={() => setActive((actualActive) => !actualActive)}
         className="btn btn_full_size"
       >
-        &lt; Adicionar Produto /&gt;
+        Adicionar Produto
       </button>
       {active && (
         <PopUpProducts
@@ -136,9 +142,14 @@ const EditOrder = () => {
           products.map((product) => (
             <div className="text_outline">
               <span>
-                {product.qtd} - {product.name}
+                {product.qtd} - {product.nameProduct}
               </span>
-              <span>X</span>
+              <span
+                className={styles.remove_product}
+                onClick={() => handleRemoveProduct(product)}
+              >
+                <i class="fa-solid fa-trash"></i>
+              </span>
             </div>
           ))}
       </section>
@@ -154,7 +165,7 @@ const EditOrder = () => {
         </span>
       )}
       <button type="submit" className="btn btn_full_size">
-        &lt; Salvar pedido /&gt;
+        Salvar pedido
       </button>
     </form>
   );

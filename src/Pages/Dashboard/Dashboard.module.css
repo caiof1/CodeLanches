@@ -1,1 +1,87 @@
+.container {
+    padding: 5px;
+}
 
+.container .container_graph {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    padding: 5px;
+}
+
+.container .container_graph .box {
+    background-color: #fff;
+    padding: 5px;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 5px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.container .container_graph .box::-webkit-scrollbar-thumb {
+    background: rgba(0, 143, 251, 0.85);
+    border-radius: 0;
+}
+
+.container .container_info {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.container .container_info div {
+    width: 100%;
+    max-width: 250px;
+    height: 150px;
+    border-radius: 6px;
+    color: #fff;
+    margin: 0 5px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.container .container_info div:hover {
+    transform: scale(1.05);
+    transition: .2s linear;
+}
+
+.container .info_outline1 {
+    background: linear-gradient(135deg, #ABDCFF 10%, #0396FF 100%);
+}
+
+.container .info_outline2 {
+    background: linear-gradient(135deg, #2AFADF 10%, #4C83FF 100%);
+}
+
+.container .info_outline3 {
+    background: linear-gradient( 135deg, #FFD3A5 10%, #FD6585 100%);
+}
+
+.container .info_outline4 {
+    background: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
+}
+
+.container .container_info div h4 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.container .container_info div span {
+    margin-top: 30px;
+    font-size: 35px;
+}
+
+@media screen and (max-width: 534px) {
+    .container .container_info div {
+        max-width: none;
+    }
+}

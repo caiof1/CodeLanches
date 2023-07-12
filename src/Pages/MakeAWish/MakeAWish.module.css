@@ -33,3 +33,11 @@
 .container_create .list_order div:last-child {
     margin-bottom: 20px;
 }
+
+.container_create .remove_product {
+    cursor: pointer;
+}
+
+.container_create .remove_product:hover {
+    color: #F84444;
+}

@@ -19,7 +19,7 @@ const Home = () => {
         </div>
         <div>
           <p>Adicionar produtos ao cardápio</p>
-          <Link className='btn'>Produtos</Link>
+          <Link to="/products" className='btn'>Produtos</Link>
         </div>
         <div>
           <p>Adicionar novas categorias</p>
@@ -27,7 +27,7 @@ const Home = () => {
         </div>
         <div>
           <p>Adicionar novos colaboradores</p>
-          <Link className='btn'>Colaboradores</Link>
+          <Link to="/register" className='btn'>Colaboradores</Link>
         </div>
         <div>
           <p>Ver o dashboard</p>

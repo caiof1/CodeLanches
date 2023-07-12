@@ -11,6 +11,12 @@
     align-items: center;
     padding: 0 10px;
     margin: 20px 0;
+    cursor: pointer;
+}
+
+.container_category .category .all_category:hover {
+    transform: scale(1.05);
+    transition: .2s linear;
 }
 
 .container_category .category .all_category span {
